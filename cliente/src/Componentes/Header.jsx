@@ -20,9 +20,7 @@ const Header = () => {
         <Button className="w-12 h-12 hidden sm:inline" color="blue-950" pill>
           <FaMoon />
         </Button>
-        <Link>
-          <Button className="py-1 px-6 text-lg rounded-full cursor-pointer font-medium bg-blue-700 text-white hover:bg-blue-950 shadow-xs transition-all duration-500">Iniciar Sesión</Button>
-        </Link>
+        <Link to="/registrarse" className="py-3 px-6 text-lg rounded-full cursor-pointer font-medium bg-blue-700 text-white hover:bg-blue-950 shadow-xs transition-all duration-500">Registrarse</Link>
         <Navbar.Toggle />
       </div>
     </Navbar>

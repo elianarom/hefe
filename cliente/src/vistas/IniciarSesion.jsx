@@ -1,8 +1,7 @@
 
-
 const IniciarSesion = () => {
   return (
-    <div>IniciarSesion</div>
+<div></div>
   )
 }
 
