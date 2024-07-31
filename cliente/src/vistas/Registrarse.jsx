@@ -31,7 +31,7 @@ const Registrarse = () => {
       }
       setLoading(false);
       if(res.ok) {
-        navigate('/iniciarsesion');
+        navigate('/iniciar-sesion');
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -78,7 +78,7 @@ const Registrarse = () => {
           <Link to="/iniciarsesion" className="text-blue-600 font-bold">Iniciá Sesión</Link>
         </div>
         {
-          errorMessage
+          errorMessage 
         }
       </div>
     </div>
