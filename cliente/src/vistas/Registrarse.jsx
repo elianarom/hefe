@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 const Registrarse = () => {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState([null]);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -75,11 +75,11 @@ const Registrarse = () => {
         </form>
         <div className="flex gap-2 text-sm mt-5">
           <p>¿Ya tenés una cuenta?</p>
-          <Link to="/iniciarsesion" className="text-blue-600 font-bold">Iniciá Sesión</Link>
+          <Link to="/iniciar-sesion" className="text-blue-600 font-bold">Iniciá Sesión</Link>
         </div>
-        {
-          errorMessage 
-        }
+        {errorMessage && (
+            <Alert className="mt-5" color="failure">{errorMessage}</Alert>
+        )}
       </div>
     </div>
   </div>
