@@ -1,11 +1,12 @@
+import { errorHandler } from '../extras/error.js';
 import Usuario from '../modelos/usuario.modelo.js'
 import bcryptjs from 'bcryptjs';
 
-export const iniciarsesion = async (req, res) => {
+export const iniciarsesion = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     if(!username || !email || !password || username === '' || email === '' || password === '') {
-        return res.status(400).json({message: "Todos los campos son requeridos."})
+        next(errorHandler(400, "Todos los campos son requeridos."));
     }
 
     const passwordHasheada = bcryptjs.hashSync(password, 10);
@@ -14,8 +15,8 @@ export const iniciarsesion = async (req, res) => {
 
     try {
         await nuevoUsuario.save();
-        res.json("Te registraste con éxito.")
+        res.json("Te registraste con éxito.");
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        next(error);
     }
 }

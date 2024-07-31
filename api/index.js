@@ -22,3 +22,13 @@ app.listen(3000, () => {
 app.use('/api/usuario', usuarioRutas);
 app.use('/api/auth', authRutas);
 
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const mensaje = err.mensaje || 'Ocurrió un error en el servidor';
+    res.status(statusCode).json({
+        success: false,
+        statusCode,
+        mensaje
+    });
+});
+
