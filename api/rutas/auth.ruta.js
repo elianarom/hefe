@@ -1,8 +1,8 @@
 import express from 'express';
-import { iniciarsesion } from '../controladores/auth.controlador.js';
+import { registrarse } from '../controladores/auth.controlador.js';
 
 const router = express.Router();
 
-router.post('/iniciarsesion', iniciarsesion);
+router.post('/registrarse', registrarse);
 
 export default router;

@@ -2,7 +2,7 @@ import { errorHandler } from '../extras/error.js';
 import Usuario from '../modelos/usuario.modelo.js'
 import bcryptjs from 'bcryptjs';
 
-export const iniciarsesion = async (req, res, next) => {
+export const registrarse = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     if(!username || !email || !password || username === '' || email === '' || password === '') {
