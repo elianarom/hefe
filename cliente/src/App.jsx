@@ -7,6 +7,7 @@ import Registrarse from './vistas/Registrarse'
 import CerrarSesion from './vistas/CerrarSesion'
 import Dashboard from './vistas/Dashboard'
 import Header from "./Componentes/Header"
+import FooterCom from "./Componentes/Footer"
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/cerrarsesion" element={<CerrarSesion />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+      <FooterCom />
     </BrowserRouter>
   )
 }
