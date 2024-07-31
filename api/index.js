@@ -1,8 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import usuarioRutas from './rutas/usuario.ruta.js';
+import authRutas from './rutas/auth.ruta.js';
 
 const app = express();
+
+app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/api', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -17,4 +20,5 @@ app.listen(3000, () => {
 });
 
 app.use('/api/usuario', usuarioRutas);
+app.use('/api/auth', authRutas);
 
