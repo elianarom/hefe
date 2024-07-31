@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import usuarioRutas from './rutas/usuario.ruta.js';
 
 const app = express();
 
@@ -14,3 +15,6 @@ db.once('open', () => {
 app.listen(3000, () => {
     console.log('server corriendo en el puerto 3000');
 });
+
+app.use('/api/usuario', usuarioRutas);
+
