@@ -51,3 +51,37 @@ export const iniciarsesion = async (req, res, next) => {
         next(error);
     }
 }
+
+export const google = async (req, res, next) => {
+    const { email, name, googlePhotoUrl } = req.body;
+    try {
+        const usuario = await Usuario.findOne({ email })
+        if(usuario) {
+            const token = await createAccessToken({id: usuario._id});
+            const {password, ...rest} = usuario._doc;
+            res.cookie('token', token)
+            res.json(rest);
+        } else {
+            const generarPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashearPassword = await bcrypt.hash(generarPassword, 10);
+
+            const nuevoUsuario = new Usuario({
+                username: name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
+                email,
+                password: hashearPassword,
+                fotoPerfil: googlePhotoUrl,
+            });
+            try {
+                await nuevoUsuario.save();
+                const token = await createAccessToken({id: nuevoUsuario._id});
+                const {password, ...rest} = nuevoUsuario._doc;
+                res.cookie('token', token)
+                res.json(rest);
+            } catch (error) {
+                next(error);
+            }
+        }
+    } catch (error) {
+        next(error)
+    }
+}

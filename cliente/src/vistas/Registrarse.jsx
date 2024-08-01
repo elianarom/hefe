@@ -72,6 +72,7 @@ const Registrarse = () => {
               ) : 'Registrarse'
             }
           </Button>
+          {/**<AuthGoogle />*/}
         </form>
         <div className="flex gap-2 text-sm mt-5">
           <p>¿Ya tenés una cuenta?</p>
