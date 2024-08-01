@@ -24,7 +24,7 @@ export const registrarse = async (req, res, next) => {
 }
 
 export const iniciarsesion = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { username, email, password, fotoPerfil } = req.body;
 
     if( !email || !password || email === '' || password === '') {
         next(errorHandler(400, "Todos los campos son requeridos."));
@@ -46,13 +46,15 @@ export const iniciarsesion = async (req, res, next) => {
         res.json({
             id: usuarioValido._id,
             email: usuarioValido.email,
+            username: usuarioValido.username,
+            fotoPerfil: usuarioValido.fotoPerfil,
         });
     } catch (error) {
         next(error);
     }
 }
 
-export const google = async (req, res, next) => {
+/*export const google = async (req, res, next) => {
     const { email, name, googlePhotoUrl } = req.body;
     try {
         const usuario = await Usuario.findOne({ email })
@@ -84,4 +86,4 @@ export const google = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-}
+}*/

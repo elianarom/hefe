@@ -20,7 +20,7 @@ export const DashSidebar = () => {
     <Sidebar className="w-full md:w-56">
         <Sidebar.Items>
             <Sidebar.ItemGroup>
-                <Link to="/dashboard?tab=profile">
+                <Link to={'/dashboard?tab=perfil'}>
                     <Sidebar.Item active={tab === "perfil"} icon={HiUser} label={"Usuario"} labelColor="dark">
                         Perfil
                     </Sidebar.Item>
