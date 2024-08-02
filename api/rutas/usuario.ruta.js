@@ -1,8 +1,8 @@
 import express from 'express';
-import { test } from '../controladores/usuario.controlador.js';
+import { cerrarsesion } from '../controladores/usuario.controlador.js';
 
 const router = express.Router();
 
-router.get('/test', test );
+router.post('/cerrar-sesion', cerrarsesion)
 
 export default router

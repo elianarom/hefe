@@ -2,10 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import usuarioRutas from './rutas/usuario.ruta.js';
 import authRutas from './rutas/auth.ruta.js';
+import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors({origin: 'http://localhost:5173', credentials: true}));
 
 mongoose.connect('mongodb://localhost:27017/api');
 

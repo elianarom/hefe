@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { inicioDeSesion, inicioDeSesionExito, inicioDeSesionFallido } from "../redux/usuario/usuarioSlice.js";
+import AuthGoogle from '../Componentes/AuthGoogle.jsx'
 
 const IniciarSesion = () => {
   const [formData, setFormData] = useState({});
@@ -68,7 +69,7 @@ const IniciarSesion = () => {
               ) : 'Iniciar Sesión'
             }
           </Button>
-          {/**<AuthGoogle />*/}
+          <AuthGoogle />
         </form>
         <div className="flex gap-2 text-sm mt-5">
           <p>¿No tenés una cuenta?</p>

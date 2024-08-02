@@ -23,8 +23,13 @@ const usuarioSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        cerrarSesionExito: (state) => {
+            state.usuarioActual = null;
+            state.error = null,
+            state.loading = false;
+        },
     },
 });
 
-export const { inicioDeSesion, inicioDeSesionExito, inicioDeSesionFallido } = usuarioSlice.actions;
+export const { inicioDeSesion, inicioDeSesionExito, inicioDeSesionFallido, cerrarSesionExito } = usuarioSlice.actions;
 export default usuarioSlice.reducer;

@@ -1,60 +1,65 @@
 import { errorHandler } from '../extras/error.js';
 import Usuario from '../modelos/usuario.modelo.js'
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { createAccessToken } from '../jwt/jwt.js';
+import { TOKEN_SECRET } from "../config.js"
+
+const salt = 10;
+const claveSecreta = 'app';
 
 export const registrarse = async (req, res, next) => {
     const { username, email, password } = req.body;
 
-    if(!username || !email || !password || username === '' || email === '' || password === '') {
-        next(errorHandler(400, "Todos los campos son requeridos."));
+    if (!username || !email || !password || username === '' || email === '' || password === '') {
+        next(errorHandler(400, "Todos los campos son obligatorios."));
     }
 
-    const passwordHasheada = await bcrypt.hash(password, 10);
+    const passwordHash = bcrypt.hashSync(password, 10)
 
-    const nuevoUsuario = new Usuario({ username, email, password: passwordHasheada });
+    const nuevoUsuario = new Usuario({
+        username,
+        email,
+        password: passwordHash,
+    });
 
     try {
         await nuevoUsuario.save();
-        res.json("Te registraste con éxito.");
+        res.json({ message: "Te registraste con éxito."})
     } catch (error) {
         next(error);
     }
 }
 
 export const iniciarsesion = async (req, res, next) => {
-    const { username, email, password, fotoPerfil } = req.body;
+    const { email, password } = req.body;
 
-    if( !email || !password || email === '' || password === '') {
-        next(errorHandler(400, "Todos los campos son requeridos."));
+    if(!email || !password || email === '' || password === '') {
+        next(errorHandler(400, "Todos los campos son obligatorios."));
     }
 
     try {
         const usuarioValido = await Usuario.findOne({ email });
         if(!usuarioValido) {
-            return next(errorHandler(404, "Usuario no encontrado."));
+            return next(errorHandler(400, "Credenciales incorrectas."));
         }
+        const passwordValida = await bcrypt.compare(password, usuarioValido.password);
+        if(!passwordValida) {
+            return next(errorHandler(400, "Credenciales incorrectas."));
+        }
+        const token = await createAccessToken({id: usuarioValido._id})
         
-        const coincide = await bcrypt.compare(password, usuarioValido.password);
-        if(!coincide) {
-            return next(errorHandler(400, "Contraseña incorrecta."));
-        }
+        const { password: pass, ...rest } = usuarioValido._doc;
 
-        const token = await createAccessToken({id: usuarioValido._id});
         res.cookie('token', token)
-        res.json({
-            id: usuarioValido._id,
-            email: usuarioValido.email,
-            username: usuarioValido.username,
-            fotoPerfil: usuarioValido.fotoPerfil,
-        });
+                res.json(rest);
     } catch (error) {
-        next(error);
+        next(error)
     }
+
 }
 
-/*export const google = async (req, res, next) => {
+export const google = async (req, res, next) => {
     const { email, name, googlePhotoUrl } = req.body;
     try {
         const usuario = await Usuario.findOne({ email })
@@ -86,4 +91,4 @@ export const iniciarsesion = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-}*/
+}
