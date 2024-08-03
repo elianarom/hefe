@@ -1,4 +1,4 @@
-import { Avatar, Button, TextInput } from "flowbite-react"
+import { Button, TextInput } from "flowbite-react"
 import { useDispatch, useSelector } from "react-redux"
 import { cerrarSesionExito } from '../redux/usuario/usuarioSlice'
 
@@ -12,7 +12,7 @@ const DashPerfil = () => {
                 method: 'POST',
             });
             const data = await res.json();
-            if(!res.ok) {
+            if(!res) {
                 console.log(data.message);
             } else {
                 dispatch(cerrarSesionExito())

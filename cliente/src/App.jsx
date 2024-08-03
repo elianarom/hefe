@@ -9,6 +9,7 @@ import Dashboard from './vistas/Dashboard'
 import Header from "./Componentes/Header"
 import FooterCom from "./Componentes/Footer"
 import RutaProtegida from "./Componentes/RutaProtegida"
+import Error from "./Componentes/Error"
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/iniciar-sesion" element={<IniciarSesion />} />
         <Route path="/registrarse" element={<Registrarse />} />
         <Route path="/cerrarsesion" element={<CerrarSesion />} />
+        <Route path='*' element={<Error />} />
         <Route element={ <RutaProtegida />}> 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
