@@ -47,7 +47,7 @@ export const iniciarsesion = async (req, res, next) => {
         if(!passwordValida) {
             return next(errorHandler(400, "Credenciales incorrectas."));
         }
-        const token = await createAccessToken({id: usuarioValido._id})
+        const token = await createAccessToken({id: usuarioValido._id, isAdmin: usuarioValido.isAdmin})
         
         const { password: pass, ...rest } = usuarioValido._doc;
 
@@ -64,7 +64,7 @@ export const google = async (req, res, next) => {
     try {
         const usuario = await Usuario.findOne({ email })
         if(usuario) {
-            const token = await createAccessToken({id: usuario._id});
+            const token = await createAccessToken({id: usuario._id, isAdmin: usuario.isAdmin});
             const {password, ...rest} = usuario._doc;
             res.cookie('token', token)
             res.json(rest);
@@ -80,7 +80,7 @@ export const google = async (req, res, next) => {
             });
             try {
                 await nuevoUsuario.save();
-                const token = await createAccessToken({id: nuevoUsuario._id});
+                const token = await createAccessToken({id: nuevoUsuario._id, isAdmin: nuevoUsuario.isAdmin});
                 const {password, ...rest} = nuevoUsuario._doc;
                 res.cookie('token', token)
                 res.json(rest);
